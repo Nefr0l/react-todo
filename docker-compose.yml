@@ -1,0 +1,17 @@
+services:
+  db:
+    image: mysql
+    ports:
+      - "3306:3307"
+    command: --init-file /data/application/init.sql
+    volumes:
+      - ./init.sql:/data/application/init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: "admin"
+      MYSQL_PASSWORD: "admin"
+      MYSQL_DATABASE: "database"
+      MYSQL_USER: "admin"
+  api:
+    image: nginx
+    ports:
+      - "80"

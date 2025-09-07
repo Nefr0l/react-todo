@@ -10,6 +10,8 @@ import (
 var db *sql.DB
 
 func main() {
+	var err error
+
 	cfg := mysql.NewConfig()
 	cfg.User = "root"
 	cfg.Passwd = "admin"
@@ -17,8 +19,7 @@ func main() {
 	cfg.Addr = "localhost:3307"
 	cfg.DBName = "database"
 
-	var err error
-	db, err = sql.Open("mysql", cfg.FormatDSN())
+	db, err := sql.Open("mysql", cfg.FormatDSN())
 
 	handleErr(err)
 	fmt.Println("connected to the database")
@@ -31,7 +32,7 @@ func main() {
 		var id int
 		var name string
 
-		err := rows.Scan(&id, &name)
+		err = rows.Scan(&id, &name)
 
 		handleErr(err)
 		fmt.Println(id, name)
