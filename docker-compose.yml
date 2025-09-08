@@ -18,6 +18,11 @@ services:
       dockerfile: "./db/dockerfile"
     depends_on:
       - backend
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "tasks"
+    ports:
+      - "3306:3306"
 
 networks:
   frontend:
