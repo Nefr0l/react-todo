@@ -1,0 +1,4 @@
+FROM node:iron-alpine
+RUN npm -v
+
+EXPOSE 80

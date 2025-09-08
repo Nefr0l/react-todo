@@ -1,17 +1,26 @@
 services:
+  frontend:
+    ports:
+      - "3360" 
+    build: 
+      dockerfile: "./frontend/dockerfile"
+    networks:
+      - frontend
+  backend:
+    build:
+      dockerfile: "./backend/dockerfile"
+    depends_on:
+      - frontend
+    networks:
+      - backend
   db:
-    image: mysql
-    ports:
-      - "3306:3307"
-    command: --init-file /data/application/init.sql
-    volumes:
-      - ./init.sql:/data/application/init.sql
-    environment:
-      MYSQL_ROOT_PASSWORD: "admin"
-      MYSQL_PASSWORD: "admin"
-      MYSQL_DATABASE: "database"
-      MYSQL_USER: "admin"
-  api:
-    image: nginx
-    ports:
-      - "80"
+    build:
+      dockerfile: "./db/dockerfile"
+    depends_on:
+      - backend
+
+networks:
+  frontend:
+
+  backend:
+
