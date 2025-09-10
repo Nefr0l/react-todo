@@ -1,33 +1,23 @@
 services:
   frontend:
-    ports:
-      - "3000:3000" 
+    ports: 
+      - "80:80"
     build: 
-      dockerfile: "./frontend/dockerfile"
-    networks:
-      - frontend
+      context: ./frontend
+      dockerfile: "dockerfile"
   backend:
     ports:
       - "3001:3001"
     build:
-      dockerfile: "./backend/dockerfile"
-    depends_on:
-      - frontend
-    networks:
-      - backend
+      context: ./backend
+      dockerfile: "dockerfile"
   db:
     build:
-      dockerfile: "./db/dockerfile"
-    depends_on:
-      - backend
+      context: ./db
+      dockerfile: "dockerfile"
     environment:
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_DATABASE: "tasks"
     ports:
       - "3306:3306"
-
-networks:
-  frontend:
-
-  backend:
 
