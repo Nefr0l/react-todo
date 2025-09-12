@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-      <p>Todo</p>
+      <p>Todo2</p>
       <TaskList></TaskList>
     </>
   )
