@@ -1,13 +1,12 @@
 import './App.css'
-import Task from './Task'
+import TaskList from './TaskList'
 
 function App() {
 
   return (
     <>
-      <p>Hello Worldd</p>
-      <Task name='xd' isCompleted></Task>
-      <Task name='2' isCompleted={false}></Task>
+      <p>Todo</p>
+      <TaskList></TaskList>
     </>
   )
 }
