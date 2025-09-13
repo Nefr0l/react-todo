@@ -2,38 +2,36 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"net/http"
 
+	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
 )
 
-type task struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
-}
+var db *sql.DB
 
 func main() {
-	db, err := sql.Open("sqlite3", "./db/app.sqlite")
-	handleErr(err)
 
-	defer db.Close()
+	// init db
+	var err error
+	db, err = sql.Open("sqlite3", "./db/tasks.db")
 
-	http.HandleFunc("/tasks", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == http.MethodGet {
-			rows, _ := db.Query("SELECT id, name FROM tasks")
-			defer rows.Close()
-		}
-	})
+	if err != nil {
+		log.Fatal("error loading database")
+	}
 
-	log.Println("Server running on :3001")
-	http.ListenAndServe(":3001", nil)
+	// gin
+	r := gin.Default()
 
+	v1 := r.Group("/api/v1")
+	{
+		v1.GET("tasks", getTasks)
+	}
+
+	r.Run(":3001")
 }
 
-func handleErr(err error) {
-	if err != nil {
-		fmt.Println(err)
-	}
+func getTasks(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"message": "getTasks Called"})
 }
