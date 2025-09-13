@@ -11,13 +11,4 @@ services:
     build:
       context: ./backend
       dockerfile: "dockerfile"
-  db:
-    build:
-      context: ./db
-      dockerfile: "dockerfile"
-    environment:
-      MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_DATABASE: "tasks"
-    ports:
-      - "3306:3306"
 
